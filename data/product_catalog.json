@@ -1,0 +1,50 @@
+{
+  "catalogue_name": "DepthX sample garments",
+  "units": "cm",
+  "products": [
+    {
+      "code": "DX-TEE-001",
+      "name": "Everyday Cotton Tee",
+      "category": "T-shirt",
+      "size": "M",
+      "color": "Forest green",
+      "measurements": {
+        "chest_cm": 104,
+        "waist_cm": 98
+      }
+    },
+    {
+      "code": "DX-TEE-002",
+      "name": "Everyday Cotton Tee",
+      "category": "T-shirt",
+      "size": "L",
+      "color": "Cloud white",
+      "measurements": {
+        "chest_cm": 112,
+        "waist_cm": 106
+      }
+    },
+    {
+      "code": "DX-SHIRT-001",
+      "name": "Relaxed Oxford Shirt",
+      "category": "Shirt",
+      "size": "M",
+      "color": "Sky blue",
+      "measurements": {
+        "chest_cm": 108,
+        "waist_cm": 102
+      }
+    },
+    {
+      "code": "DX-JACKET-001",
+      "name": "Utility Overshirt",
+      "category": "Jacket",
+      "size": "L",
+      "color": "Stone",
+      "measurements": {
+        "chest_cm": 116,
+        "waist_cm": 110
+      }
+    }
+  ]
+}

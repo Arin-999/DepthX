@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DepthX — Fit Intelligence</title>
+<style>
+:root{--ink:#172033;--muted:#748096;--line:#e7ebf2;--blue:#315efb;--blue2:#6485ff;--pale:#f2f5ff;--green:#14956b;--amber:#b7791f;--red:#d14343;--surface:#fff;--canvas:#f7f9fc;--shadow:0 12px 34px rgba(26,42,76,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--canvas);color:var(--ink);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:246px 1fr}.sidebar{background:#fff;border-right:1px solid var(--line);padding:25px 17px;display:flex;flex-direction:column;gap:24px}.brand{display:flex;align-items:center;gap:11px;padding:0 8px}.brandmark{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#315efb,#80a0ff);display:grid;place-items:center;color:white;box-shadow:0 8px 16px #315efb33}.brand h1{font-size:17px;letter-spacing:-.5px;margin:0}.brand p{font-size:11px;color:var(--muted);margin:1px 0 0}.side-label{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;color:#9aa4b5;font-weight:800;padding:0 10px;margin-bottom:6px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#68758b;text-align:left;border-radius:10px;padding:11px 12px;display:flex;align-items:center;gap:11px;transition:.2s}.nav button:hover{background:#f5f7fc;color:var(--ink)}.nav button.active{background:var(--pale);color:var(--blue);font-weight:700}.ico{width:18px;height:18px;display:inline-grid;place-items:center;font-size:16px}.side-card{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff}.privacy-head{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:12px}.status-pill{border-radius:20px;padding:3px 7px;font-size:10px;font-weight:800;background:#f0f2f6;color:#6f7a8c}.status-pill.off{background:#eaf8f2;color:var(--green)}.privacy-copy{font-size:11px;color:var(--muted);margin:8px 0 12px}.switch-row{display:flex;align-items:center;justify-content:space-between}.switch{width:40px;height:23px;border:0;border-radius:30px;background:#dce1eb;padding:3px;transition:.25s}.switch span{width:17px;height:17px;border-radius:50%;background:#fff;display:block;box-shadow:0 1px 4px #0002;transition:.25s}.switch.on{background:var(--green)}.switch.on span{transform:translateX(17px)}.sample-select{width:100%;border:1px solid var(--line);background:#fbfcff;border-radius:9px;padding:9px;color:var(--ink);margin-top:8px}.side-foot{margin-top:auto;font-size:10px;color:#9aa4b5;padding:0 9px}.main{padding:28px clamp(18px,3vw,42px) 40px;max-width:1500px;width:100%;margin:auto}.topbar{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:26px}.eyebrow{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;color:var(--blue);font-weight:800}.topbar h2{font-size:28px;letter-spacing:-1.1px;margin:5px 0 4px}.sub{color:var(--muted);margin:0;max-width:700px}.top-actions{display:flex;gap:9px;align-items:center}.chip{display:flex;gap:7px;align-items:center;border:1px solid var(--line);background:#fff;padding:8px 11px;border-radius:10px;color:#68758b;font-size:11px;white-space:nowrap}.dot{width:7px;height:7px;border-radius:50%;background:#a6afbd}.dot.green{background:#15a875;box-shadow:0 0 0 4px #15a87518}.tabs{display:flex;gap:5px;border-bottom:1px solid var(--line);margin-bottom:22px}.tab{padding:12px 16px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--muted);font-weight:650;margin-bottom:-1px}.tab.active{color:var(--blue);border-color:var(--blue)}.panel{display:none;animation:rise .35s ease both}.panel.active{display:block}.grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(290px,.8fr);gap:18px}.card{background:var(--surface);border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow);padding:20px;min-width:0;animation:rise .45s ease both}.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:17px}.card h3{font-size:14px;margin:0;font-weight:800;letter-spacing:-.2px}.card .hint{font-size:11px;color:var(--muted);margin:4px 0 0}.tiny-tag{border:1px solid var(--line);border-radius:7px;padding:4px 7px;font-size:10px;color:#718096;white-space:nowrap}.upload-zone{border:1px dashed #cbd4e5;border-radius:13px;padding:12px;background:#fbfcff;display:flex;align-items:center;gap:12px}.upload-icon{width:40px;height:40px;border-radius:11px;background:#edf2ff;color:var(--blue);display:grid;place-items:center;font-size:20px;flex-shrink:0}.upload-zone strong{font-size:12px;display:block}.upload-zone small{color:var(--muted);font-size:10px}.upload-actions{margin-left:auto;display:flex;gap:7px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#fff;color:#526078;padding:9px 12px;border-radius:9px;font-size:11px;font-weight:750;transition:transform .2s,box-shadow .2s,background .2s}.btn:hover{transform:translateY(-1px);box-shadow:0 5px 12px #1720330d}.btn.primary{background:var(--blue);color:white;border-color:var(--blue);box-shadow:0 6px 14px #315efb25}.btn.primary:hover{background:#244fe8}.preview{margin-top:14px;min-height:300px;border-radius:13px;background:linear-gradient(135deg,#f7f9ff,#eef2fb);border:1px solid #e6ebf5;position:relative;overflow:hidden;display:grid;place-items:center}.preview img{max-height:390px;max-width:100%;object-fit:contain;display:none}.placeholder{text-align:center;color:#9aa5b7;padding:30px}.placeholder .person{font-size:60px;opacity:.65}.placeholder strong{display:block;color:#66748b;font-size:12px;margin-top:8px}.placeholder p{font-size:10px;margin:5px 0}.preview-badge{position:absolute;top:12px;left:12px;background:#fffE;border:1px solid #e5eaf4;border-radius:8px;padding:6px 9px;font-size:10px;color:#64718a;display:flex;align-items:center;gap:6px}.scanline{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#6485ff,transparent);box-shadow:0 0 14px #6485ff;display:none}.preview.scanning .scanline{display:block;animation:scan 2s linear infinite}.preview.scanning:after{content:"ANALYZING POSE";position:absolute;bottom:14px;right:14px;background:#172033;color:white;font-size:9px;letter-spacing:1px;padding:6px 9px;border-radius:6px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.metric{padding:13px;border:1px solid var(--line);border-radius:12px;background:#fff}.metric .label{font-size:10px;color:var(--muted)}.metric .value{font-size:21px;letter-spacing:-.7px;font-weight:800;margin-top:4px}.metric .note{font-size:10px;color:#8a95a7;margin-top:2px}.status-line{display:flex;align-items:center;gap:8px;margin-top:14px;padding:11px 12px;background:#f7f9fc;border-radius:10px;color:#6c788e;font-size:11px}.status-line b{color:var(--ink)}.result-list{display:grid;gap:10px}.result-item{border:1px solid var(--line);border-radius:12px;padding:13px;display:flex;align-items:center;justify-content:space-between;gap:10px}.result-item .left{display:flex;gap:10px;align-items:center}.result-icon{width:34px;height:34px;border-radius:10px;background:#f0f4ff;display:grid;place-items:center;color:var(--blue)}.result-item strong{font-size:12px;display:block}.result-item small{font-size:10px;color:var(--muted)}.value-chip{font-size:11px;font-weight:800;padding:5px 8px;border-radius:8px;background:#f4f6fa;color:#758197}.value-chip.warn{background:#fff5e6;color:#9a670e}.result-note{padding:13px;border-radius:12px;background:#fff8ec;border:1px solid #f7e6c6;color:#85621b;font-size:11px;margin-top:12px}.section-title{font-size:17px;letter-spacing:-.4px;margin:0 0 5px}.section-copy{color:var(--muted);margin:0 0 20px;font-size:12px}.tag-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(290px,.8fr);gap:18px}.field-label{font-size:11px;font-weight:750;display:block;margin:15px 0 7px}.input{width:100%;border:1px solid #dfe5ef;border-radius:10px;padding:11px 12px;outline:none;background:#fff;color:var(--ink);transition:border .2s,box-shadow .2s}.input:focus{border-color:var(--blue2);box-shadow:0 0 0 3px #315efb15}.dropbox{border:1px dashed #cbd4e5;border-radius:13px;padding:22px;text-align:center;background:#fbfcff;margin-top:14px}.dropbox input{max-width:100%;font-size:11px;margin-top:10px}.product-visual{height:220px;background:linear-gradient(140deg,#f4f7ff,#f9fafc);border:1px solid var(--line);border-radius:14px;display:grid;place-items:center;position:relative;overflow:hidden}.tee{width:110px;height:130px;filter:drop-shadow(0 15px 12px #24385d1a);transition:transform .4s}.product-visual:hover .tee{transform:translateY(-5px) rotate(-2deg)}.product-chip{position:absolute;top:12px;left:12px;font-size:10px;background:#fff;border:1px solid var(--line);padding:5px 8px;border-radius:7px;color:#6b7890}.product-details{display:grid;gap:10px;margin-top:15px}.detail-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f0f2f6;font-size:11px}.detail-row span:first-child{color:var(--muted)}.detail-row strong{font-size:11px;text-align:right}.hidden{display:none!important}.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.about-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:var(--shadow)}.about-card .big-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:#eef2ff;color:var(--blue);font-size:18px;margin-bottom:14px}.about-card h3{margin:0 0 7px;font-size:13px}.about-card p{margin:0;color:var(--muted);font-size:11px}.notice{border:1px solid #f2dfb7;background:#fff9ed;border-radius:13px;padding:15px;margin-top:16px;color:#7e6129;font-size:11px}.footer{display:flex;justify-content:space-between;gap:12px;color:#9aa4b5;font-size:10px;margin-top:24px;padding:0 3px}.toast{position:fixed;right:24px;bottom:24px;background:#172033;color:white;border-radius:11px;padding:12px 16px;font-size:12px;box-shadow:0 10px 30px #17203325;opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;z-index:10}.toast.show{opacity:1;transform:translateY(0)}@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}@keyframes scan{from{top:10%}to{top:90%}}@media(max-width:1000px){.app{grid-template-columns:210px 1fr}.grid,.tag-layout{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.about-grid{grid-template-columns:1fr 1fr}}@media(max-width:700px){.app{display:block}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:14px;gap:14px}.brand{padding:0}.side-label,.side-card,.side-foot{display:none}.nav{grid-template-columns:repeat(3,1fr)}.nav button{justify-content:center;padding:10px 4px;font-size:11px;gap:5px}.main{padding:20px 14px}.topbar h2{font-size:24px}.top-actions{flex-wrap:wrap}.metrics{grid-template-columns:1fr 1fr}.about-grid{grid-template-columns:1fr}.upload-zone{flex-wrap:wrap}.upload-actions{margin-left:0}.footer{flex-direction:column}}
+@media(max-width:720px){.grid,.tag-layout,.about-grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.top-actions{justify-content:flex-start;flex-wrap:wrap}.upload-zone{align-items:flex-start;flex-wrap:wrap}.upload-actions{margin-left:0}.metrics{grid-template-columns:1fr 1fr}.result-item{align-items:flex-start}}
+.download-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.btn:disabled{opacity:.6;cursor:wait}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"/><path d="m4 7.5 8 4.7 8-4.7M12 12.2V21"/></svg></div><div><h1>DepthX</h1><p>Fit intelligence prototype</p></div></div>
+  <div><div class="side-label">Workspace</div><nav class="nav">
+    <button class="active" data-tab="fit"><span class="ico">⌁</span>Fit dashboard</button>
+    <button data-tab="garment"><span class="ico">▤</span>Garment tag</button>
+    <button data-tab="about"><span class="ico">ⓘ</span>About & data</button>
+  </nav></div>
+  <div class="side-card">
+    <div class="privacy-head"><span>Privacy switch</span><span class="status-pill off" id="privacyPill">OFF</span></div>
+    <p class="privacy-copy">Simulation only. This control does not open or disable a physical camera.</p>
+    <div class="switch-row"><span style="font-size:11px;color:var(--muted)" id="privacyText">Capture disabled</span><button class="switch" id="privacySwitch" aria-label="Toggle privacy simulation"><span></span></button></div>
+  </div>
+  <div class="side-card">
+    <div class="side-label" style="padding:0;margin:0">Sample product</div>
+    <select class="sample-select" id="sampleSelect"></select>
+    <button class="btn" id="loadSample" style="width:100%;margin-top:9px">Load into catalogue</button>
+  </div>
+  <div class="side-foot">DEPTHX • LOCAL PROTOTYPE<br>Loopback API · No camera access</div>
+</aside>
+<main class="main">
+  <header class="topbar">
+    <div><div class="eyebrow">Computer vision · Virtual fitting</div><h2 id="pageTitle">Fit dashboard</h2><p class="sub" id="pageSubtitle">Explore the pose-analysis workflow using an image or the included sample.</p></div>
+    <div class="top-actions"><div class="chip"><span class="dot" id="apiDot"></span><span id="apiStatus">Connecting to local API…</span></div><div class="chip"><span class="dot"></span> RGB-D sensor not connected</div></div>
+  </header>
+  <div class="tabs">
+    <button class="tab active" data-tab="fit">Fit dashboard</button>
+    <button class="tab" data-tab="garment">Garment tag</button>
+    <button class="tab" data-tab="about">About & data</button>
+  </div>
+
+  <section class="panel active" id="panel-fit">
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><div><h3>Body image & pose analysis</h3><p class="hint">Upload a JPG/PNG or use the included sample image.</p></div><span class="tiny-tag">INPUT 01</span></div>
+        <div class="upload-zone"><div class="upload-icon">↥</div><div><strong>Choose a person image</strong><small>JPG, PNG or WebP · local inference · max 10 MB</small></div><div class="upload-actions"><input type="file" id="imageInput" accept="image/png,image/jpeg,image/webp" hidden><button class="btn" id="chooseImage">Upload image</button><button class="btn" id="loadSampleImage">Use sample</button><button class="btn" id="clearImage">Clear</button></div></div>
+        <div class="preview" id="preview"><div class="preview-badge"><span class="dot"></span><span id="previewState">Awaiting input</span></div><div class="placeholder" id="placeholder"><div class="person">♙</div><strong>Your image preview appears here</strong><p>Run local MediaPipe pose inference from the Python API.</p></div><img id="personImage" alt="Selected person preview"><div class="scanline"></div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap"><span style="font-size:10px;color:var(--muted)">Image is not saved to app outputs; temporary upload spooling may occur.</span><button class="btn primary" id="analyzeBtn">Analyze pose</button></div>
+        <div class="status-line"><span class="dot" id="poseDot"></span><span id="analysisStatus"><b>Not analyzed.</b> Upload an image to begin.</span></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h3>Analysis summary</h3><p class="hint">Live interface state and measurement availability.</p></div><span class="tiny-tag">OUTPUT 01</span></div>
+        <div class="metrics">
+          <div class="metric"><div class="label">Pose detected</div><div class="value" id="poseValue">—</div><div class="note">2D image model</div></div>
+          <div class="metric"><div class="label">Landmarks</div><div class="value" id="landmarkValue">—</div><div class="note">Detected this run</div></div>
+          <div class="metric"><div class="label">Pose processing</div><div class="value" id="timeValue">—</div><div class="note">Single-run diagnostic</div></div>
+        </div>
+        <div style="height:18px"></div>
+        <div class="result-list">
+          <div class="result-item"><div class="left"><div class="result-icon">↔</div><div><strong>Chest circumference</strong><small>Requires validated 3D body measurements</small></div></div><span class="value-chip warn">Unavailable</span></div>
+          <div class="result-item"><div class="left"><div class="result-icon">⌁</div><div><strong>Waist circumference</strong><small>Requires validated 3D body measurements</small></div></div><span class="value-chip warn">Unavailable</span></div>
+          <div class="result-item"><div class="left"><div class="result-icon">◈</div><div><strong>Fit recommendation</strong><small>Withheld until body measurements are validated</small></div></div><span class="value-chip">Not generated</span></div>
+        </div>
+        <div class="result-note"><b>Measurement integrity</b><br>Depth simulation and image landmarks are not equivalent to calibrated body circumference measurements.</div>
+        <div class="download-actions hidden" id="reportActions"><button class="btn" id="downloadReport">Download JSON report</button><button class="btn" id="downloadCsv">Download CSV summary</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-garment">
+    <div style="margin-bottom:19px"><h3 class="section-title">Identify a garment</h3><p class="section-copy">Scan a product tag or enter a catalogue code to retrieve its linked sample record.</p></div>
+    <div class="tag-layout">
+      <div class="card">
+        <div class="card-head"><div><h3>Garment tag lookup</h3><p class="hint">Use a sample ID or upload an image containing a QR/barcode.</p></div><span class="tiny-tag">INPUT 02</span></div>
+        <label class="field-label" for="tagCode">Catalogue code</label><div style="display:flex;gap:8px"><input class="input" id="tagCode" value="DX-TEE-001" placeholder="e.g. DX-TEE-001"><button class="btn primary" id="lookupBtn">Find item</button></div>
+        <div class="dropbox"><div style="font-size:25px;color:var(--blue)">▦</div><strong style="font-size:12px">Upload tag image</strong><p style="font-size:10px;color:var(--muted);margin:4px 0">QR and supported 1D barcodes are decoded locally by OpenCV.</p><input type="file" id="tagImage" accept="image/png,image/jpeg,image/webp"></div>
+        <div id="tagImagePreview" class="hidden" style="margin-top:12px"><img id="tagImageImg" alt="Uploaded tag preview" style="max-width:100%;max-height:160px;border-radius:10px;border:1px solid var(--line)"></div>
+        <label class="field-label" for="editName">Garment name</label><input class="input" id="editName" value="Classic crew-neck T-shirt">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label class="field-label" for="editChest">Garment chest (cm)</label><input class="input" id="editChest" type="number" min="0" value="102"></div><div><label class="field-label" for="editWaist">Garment waist (cm)</label><input class="input" id="editWaist" type="number" min="0" value="98"></div></div>
+        <button class="btn" id="saveRecord" style="margin-top:14px">Update sample record</button>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h3>Matched product record</h3><p class="hint">Local sample catalogue data, not a retailer database.</p></div><span class="tiny-tag" id="matchStatus">SAMPLE</span></div>
+        <div class="product-visual"><span class="product-chip" id="productCode">DX-TEE-001</span><svg class="tee" id="garmentSvg" viewBox="0 0 140 160" fill="none"><path d="M42 17 57 9h26l15 8 27 18-16 31-17-10v85H48V56L31 66 15 35z" fill="#647df5" stroke="#3c55c9" stroke-width="2"/><path d="M57 9c1 12 25 12 26 0" stroke="#3c55c9" stroke-width="3"/><path d="M48 56 31 66M92 56l17 10" stroke="#3c55c9" stroke-width="2"/></svg></div>
+        <div class="product-details" id="productDetails">
+          <div class="detail-row"><span>Product</span><strong>Classic crew-neck T-shirt</strong></div><div class="detail-row"><span>Category</span><strong>Topwear</strong></div><div class="detail-row"><span>Garment chest</span><strong>102 cm</strong></div><div class="detail-row"><span>Garment waist</span><strong>98 cm</strong></div><div class="detail-row"><span>Digital asset</span><strong>Sample asset placeholder</strong></div>
+        </div>
+        <button class="btn primary" id="downloadJson" style="width:100%;margin-top:16px">Download product JSON</button>
+        <div class="status-line" style="margin-top:12px"><span class="dot green"></span><span id="catalogStatus">Sample catalogue loaded locally.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-about">
+    <div style="margin-bottom:20px"><h3 class="section-title">About the prototype</h3><p class="section-copy">A transparent view of the current software demonstration and its limits.</p></div>
+    <div class="about-grid">
+      <div class="about-card"><div class="big-icon">⌁</div><h3>Pose-analysis workflow</h3><p>MediaPipe detects 2D pose landmarks from a still RGB image using the local Python model.</p></div>
+      <div class="about-card"><div class="big-icon">▦</div><h3>Garment catalogue</h3><p>Sample product IDs map to local example metadata. QR and supported barcode images are decoded by the local API.</p></div>
+      <div class="about-card"><div class="big-icon">◉</div><h3>Privacy simulation</h3><p>The switch demonstrates interface state only. It does not control camera power, capture or permissions.</p></div>
+    </div>
+    <div class="card" style="margin-top:17px"><div class="card-head"><div><h3>Data and measurement limitations</h3><p class="hint">Important interpretation notes</p></div><span class="tiny-tag">TRANSPARENCY</span></div>
+      <div class="result-list">
+        <div class="result-item"><div class="left"><div class="result-icon">1</div><div><strong>Synthetic depth</strong><small>Simulated depth is not data from a physical depth camera.</small></div></div><span class="value-chip warn">Simulated</span></div>
+        <div class="result-item"><div class="left"><div class="result-icon">2</div><div><strong>Body measurements</strong><small>Chest and waist circumferences are unavailable until validated.</small></div></div><span class="value-chip warn">Unavailable</span></div>
+        <div class="result-item"><div class="left"><div class="result-icon">3</div><div><strong>Performance metrics</strong><small>UI response time is not pose-inference latency or accuracy.</small></div></div><span class="value-chip">Not benchmarked</span></div>
+      </div>
+      <div class="notice"><b>Prototype status:</b> This local app runs pose inference and tag decoding, but does not connect to a physical depth camera or operate real camera hardware. Larger multipart uploads may be temporarily spooled by the server framework and are removed after the request.</div>
+    </div>
+  </section>
+  <div class="footer"><span>DepthX • Local software prototype</span><span>Sample data clearly labelled · No real depth sensor</span></div>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+"use strict";
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => document.querySelectorAll(selector);
+const state = {
+  products: [],
+  selectedImage: null,
+  previewUrl: null,
+  tagPreviewUrl: null,
+  report: null,
+  activeProduct: null
+};
+const titles = {
+  fit: ["Fit dashboard", "Explore pose analysis using an image and the connected local model."],
+  garment: ["Garment tag", "Identify a product and retrieve its linked sample catalogue record."],
+  about: ["About & data", "Understand what the prototype demonstrates—and what remains unvalidated."]
+};
+
+function toast(message) {
+  const element = $("#toast");
+  element.textContent = message;
+  element.classList.add("show");
+  window.setTimeout(() => element.classList.remove("show"), 2800);
+}
+
+async function api(path, options = {}) {
+  const response = await fetch(path, { cache: "no-store", ...options });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(payload.detail || `Request failed (${response.status}).`);
+  }
+  return payload;
+}
+
+function setTab(tab) {
+  $$("[data-tab]").forEach((button) => button.classList.toggle("active", button.dataset.tab === tab));
+  $$(".panel").forEach((panel) => panel.classList.toggle("active", panel.id === `panel-${tab}`));
+  $("#pageTitle").textContent = titles[tab][0];
+  $("#pageSubtitle").textContent = titles[tab][1];
+}
+
+$$("[data-tab]").forEach((button) => button.addEventListener("click", () => setTab(button.dataset.tab)));
+
+function renderProduct(product, matched = false) {
+  state.activeProduct = product;
+  $("#tagCode").value = product.code;
+  $("#sampleSelect").value = product.code;
+  $("#productCode").textContent = product.code;
+  $("#editName").value = product.name;
+  $("#editChest").value = product.measurements.chest_cm;
+  $("#editWaist").value = product.measurements.waist_cm;
+  $("#matchStatus").textContent = matched ? "MATCHED" : "SAMPLE";
+  $("#catalogStatus").textContent = matched
+    ? "Product matched in the local sample catalogue."
+    : "Sample catalogue loaded locally.";
+
+  const details = [
+    ["Product", product.name],
+    ["Category", product.category],
+    ["Size", product.size],
+    ["Colour", product.color],
+    ["Garment chest", `${product.measurements.chest_cm} cm`],
+    ["Garment waist", `${product.measurements.waist_cm} cm`]
+  ];
+  const container = $("#productDetails");
+  container.replaceChildren();
+  details.forEach(([label, value]) => {
+    const row = document.createElement("div");
+    const name = document.createElement("span");
+    const text = document.createElement("strong");
+    row.className = "detail-row";
+    name.textContent = label;
+    text.textContent = value;
+    row.append(name, text);
+    container.append(row);
+  });
+}
+
+function resetPoseResults(message = "Not analyzed. Upload an image to begin.") {
+  state.report = null;
+  $("#poseValue").textContent = "—";
+  $("#landmarkValue").textContent = "—";
+  $("#timeValue").textContent = "—";
+  $("#poseDot").className = "dot";
+  $("#analysisStatus").textContent = message;
+  $("#reportActions").classList.add("hidden");
+}
+
+function showSelectedImage(file, label) {
+  if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
+  state.selectedImage = file;
+  state.previewUrl = URL.createObjectURL(file);
+  $("#personImage").src = state.previewUrl;
+  $("#personImage").style.display = "block";
+  $("#placeholder").style.display = "none";
+  $("#previewState").textContent = label;
+  resetPoseResults("Image ready. Run pose analysis when you are ready.");
+}
+
+async function initialize() {
+  try {
+    const [health, catalogue] = await Promise.all([
+      api("/api/health"),
+      api("/api/catalog")
+    ]);
+    state.products = catalogue.products;
+    $("#apiStatus").textContent = health.pose_model_available
+      ? "Local pose API ready"
+      : "Pose model unavailable";
+    $("#apiDot").classList.toggle("green", health.pose_model_available);
+
+    const selector = $("#sampleSelect");
+    selector.replaceChildren();
+    state.products.forEach((product) => {
+      const option = document.createElement("option");
+      option.value = product.code;
+      option.textContent = `${product.code} · ${product.name}`;
+      selector.append(option);
+    });
+    const initialProduct = state.products.find((product) => product.code === "DX-TEE-001")
+      || state.products[0];
+    renderProduct(initialProduct);
+  } catch (error) {
+    $("#apiStatus").textContent = "Local API unavailable";
+    $("#apiDot").classList.remove("green");
+    toast(error.message);
+  }
+}
+
+$("#privacySwitch").addEventListener("click", () => {
+  const enabled = $("#privacySwitch").classList.toggle("on");
+  $("#privacyPill").textContent = enabled ? "ON" : "OFF";
+  $("#privacyPill").classList.toggle("off", !enabled);
+  $("#privacyText").textContent = enabled ? "Simulation enabled" : "Capture disabled";
+  toast(`Privacy switch simulation: ${enabled ? "ON" : "OFF"} · no camera accessed`);
+});
+
+$("#chooseImage").addEventListener("click", () => $("#imageInput").click());
+$("#imageInput").addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  if (file) showSelectedImage(file, "Image loaded");
+});
+
+$("#loadSampleImage").addEventListener("click", async () => {
+  const button = $("#loadSampleImage");
+  button.disabled = true;
+  try {
+    const response = await fetch("/api/sample-image", { cache: "no-store" });
+    if (!response.ok) throw new Error("Could not load the included sample image.");
+    const blob = await response.blob();
+    showSelectedImage(new File([blob], "depthx-sample.jpg", { type: blob.type }), "Sample image loaded");
+    toast("Included sample image ready.");
+  } catch (error) {
+    toast(error.message);
+  } finally {
+    button.disabled = false;
+  }
+});
+
+$("#clearImage").addEventListener("click", () => {
+  if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
+  state.previewUrl = null;
+  state.selectedImage = null;
+  $("#imageInput").value = "";
+  $("#personImage").removeAttribute("src");
+  $("#personImage").style.display = "none";
+  $("#placeholder").style.display = "block";
+  $("#previewState").textContent = "Awaiting input";
+  resetPoseResults();
+});
+
+$("#analyzeBtn").addEventListener("click", async () => {
+  if (!state.selectedImage) {
+    toast("Upload an image or select the included sample first.");
+    return;
+  }
+  const button = $("#analyzeBtn");
+  const form = new FormData();
+  form.append("image", state.selectedImage);
+  form.append("garment_code", $("#sampleSelect").value);
+  form.append("garment_name", $("#editName").value);
+  form.append("garment_chest_cm", $("#editChest").value);
+  form.append("garment_waist_cm", $("#editWaist").value);
+  button.disabled = true;
+  $("#preview").classList.add("scanning");
+  $("#previewState").textContent = "Analyzing locally";
+  $("#analysisStatus").textContent = "Pose model is processing the image…";
+  try {
+    const result = await api("/api/pose", { method: "POST", body: form });
+    state.report = result.report;
+    $("#personImage").src = result.annotated_image;
+    $("#previewState").textContent = "Analysis complete";
+    const pose = result.report.pose_analysis;
+    $("#poseValue").textContent = pose.status === "detected" ? "Yes" : "No";
+    $("#landmarkValue").textContent = String(pose.landmark_count);
+    $("#timeValue").textContent = `${result.report.performance.pose_analysis_elapsed_ms.toFixed(0)} ms`;
+    $("#poseDot").className = pose.status === "detected" ? "dot green" : "dot";
+    $("#analysisStatus").textContent = pose.status === "detected"
+      ? `Pose detected · ${pose.landmark_count} landmarks. Circumference measurements remain unavailable.`
+      : "No pose detected. Try a well-lit image with the full body visible.";
+    $("#reportActions").classList.remove("hidden");
+  } catch (error) {
+    $("#previewState").textContent = "Analysis failed";
+    $("#analysisStatus").textContent = error.message;
+    $("#poseDot").className = "dot";
+    toast(error.message);
+  } finally {
+    $("#preview").classList.remove("scanning");
+    button.disabled = false;
+  }
+});
+
+function downloadFile(name, content, type) {
+  const url = URL.createObjectURL(new Blob([content], { type }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = name;
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+$("#downloadReport").addEventListener("click", () => {
+  if (!state.report) return;
+  downloadFile("depthx_fit_report.json", JSON.stringify(state.report, null, 2), "application/json");
+});
+$("#downloadCsv").addEventListener("click", () => {
+  if (!state.report) return;
+  const rows = [
+    ["field", "value"],
+    ["pose_status", state.report.pose_analysis.status],
+    ["landmark_count", state.report.pose_analysis.landmark_count],
+    ["pose_processing_ms", state.report.performance.pose_analysis_elapsed_ms],
+    ["depth_source", state.report.depth.source],
+    ["real_depth_camera_connected", false],
+    ["chest_circumference_cm", "not measured"],
+    ["waist_circumference_cm", "not measured"]
+  ];
+  const csv = rows.map((row) => row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\r\n");
+  downloadFile("depthx_fit_summary.csv", csv, "text/csv");
+});
+
+async function lookupProduct(code) {
+  const result = await api("/api/tag/lookup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code })
+  });
+  renderProduct(result.product, true);
+  toast("Product matched in the local catalogue.");
+}
+
+$("#lookupBtn").addEventListener("click", async () => {
+  try {
+    await lookupProduct($("#tagCode").value);
+  } catch (error) {
+    $("#matchStatus").textContent = "NO MATCH";
+    $("#catalogStatus").textContent = error.message;
+    toast(error.message);
+  }
+});
+
+$("#loadSample").addEventListener("click", async () => {
+  try {
+    await lookupProduct($("#sampleSelect").value);
+    setTab("garment");
+  } catch (error) {
+    toast(error.message);
+  }
+});
+
+$("#sampleSelect").addEventListener("change", async (event) => {
+  try {
+    const result = await api("/api/tag/lookup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: event.target.value })
+    });
+    renderProduct(result.product);
+  } catch (error) {
+    toast(error.message);
+  }
+});
+
+$("#saveRecord").addEventListener("click", async () => {
+  if (!state.activeProduct) return toast("Select a catalogue product first.");
+  const chest = Number($("#editChest").value);
+  const waist = Number($("#editWaist").value);
+  if (!$("#editName").value.trim() || !Number.isFinite(chest) || !Number.isFinite(waist) || chest <= 0 || waist <= 0) {
+    return toast("Enter a name and positive garment measurements in centimetres.");
+  }
+  try {
+    const response = await api(`/api/catalog/${encodeURIComponent(state.activeProduct.code)}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: $("#editName").value.trim(), chest_cm: chest, waist_cm: waist })
+    });
+    renderProduct(response.product, true);
+    toast("Example record updated in server memory for this run.");
+  } catch (error) {
+    toast(error.message);
+  }
+});
+
+$("#tagImage").addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (state.tagPreviewUrl) URL.revokeObjectURL(state.tagPreviewUrl);
+  state.tagPreviewUrl = URL.createObjectURL(file);
+  $("#tagImageImg").src = state.tagPreviewUrl;
+  $("#tagImagePreview").classList.remove("hidden");
+});
+
+$("#tagImage").addEventListener("change", async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  const form = new FormData();
+  form.append("image", file);
+  try {
+    const result = await api("/api/tag/scan", { method: "POST", body: form });
+    $("#tagCode").value = result.code;
+    if (!result.product) {
+      $("#matchStatus").textContent = "NO MATCH";
+      $("#catalogStatus").textContent = `Barcode decoded (${result.code}), but it is not in the sample catalogue.`;
+      toast("Barcode decoded; no local catalogue item matched.");
+      return;
+    }
+    renderProduct(result.product, true);
+    toast("Garment tag scanned and matched.");
+  } catch (error) {
+    $("#catalogStatus").textContent = error.message;
+    toast(error.message);
+  }
+});
+
+$("#downloadJson").addEventListener("click", () => {
+  if (!state.activeProduct) return toast("No product record is selected.");
+  const product = state.activeProduct;
+  const data = {
+    product_id: product.code,
+    name: product.name,
+    category: product.category,
+    size: product.size,
+    garment_chest_cm: product.measurements.chest_cm,
+    garment_waist_cm: product.measurements.waist_cm,
+    data_type: "sample_catalogue_record",
+    note: "Sample garment metadata only; not a body measurement or validated 3D asset."
+  };
+  downloadFile(`${product.code.toLowerCase()}-record.json`, JSON.stringify(data, null, 2), "application/json");
+});
+
+window.addEventListener("beforeunload", () => {
+  if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
+  if (state.tagPreviewUrl) URL.revokeObjectURL(state.tagPreviewUrl);
+});
+
+initialize();
+</script>
+</body>
+</html>

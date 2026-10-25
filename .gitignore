@@ -1,0 +1,16 @@
+# Python environments and generated interpreter/test state
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environment secrets
+.env
+.env.*
+!.env.example
+
+# Runtime output and generated measurement artifacts
+outputs/

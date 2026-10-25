@@ -1,0 +1,8 @@
+{
+  "garment_name": "Demo T-Shirt",
+  "units": "cm",
+  "measurements": {
+    "chest_cm": 104,
+    "waist_cm": 85
+  }
+}
